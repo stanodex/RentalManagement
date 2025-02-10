@@ -3,7 +3,8 @@
 class RentalItem:
 	id_count = 0
 	def __init__(self, type, condition, price_per_day):
-		self.item_id = RentalItem.id_count + 1
+		RentalItem.id_count += 1
+		self.item_id = RentalItem.id_count
 		self.type = type
 		self.condition = condition
 		self.price_per_day = price_per_day

@@ -37,8 +37,10 @@ class RentalManager:
 			print("ERR: Item is not found.\n")
 	
 	def listitems(self):
-		for item_id, brand, model, price_per_day in RentalManager.all_items.items():
-			print(f"{item_id} {brand} {model} {price_per_day}PLN")
+		for item_id, item in RentalManager.all_items.items():  # Unpack tuple
+			item.display_info()
+			print("---------------------------")
+
 
 	#check changed elif blocks to if block to see all possible errors at once
 	def rentitem(self, item_id, customer_id):
@@ -51,7 +53,7 @@ class RentalManager:
 			if item.is_rentable == False:
 				print("ERR: The item is already rented.\n")
 		elif item_id in RentalManager.customer_list[customer_id].rents:
-			print("You cannot rent the item you already rented.\n")
+			print("ERR: You cannot rent the item you already rented.\n")
 		else:
 			item = RentalManager.all_items[item_id]
 			item.is_rentable = False
@@ -102,8 +104,9 @@ class RentalManager:
 			print("ERR: Customer is not found.\n")
 	
 	def listcustomers(self):
-		for customer_id, name, surname, age in RentalManager.customer_list.items():
-			print(f"{customer_id}, {name} {surname}, {age}")
+		for customer_id, customer in RentalManager.customer_list.items():
+			customer.getinfo()
+			print("---------------------------")
 
 	
 

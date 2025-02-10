@@ -27,6 +27,6 @@ class Customer:
 	#check getinfo for loop
 	def getinfo(self):
 		print(f"ID: {self.customer_id}\nName: {self.name}\nSurname: {self.surname}\nAddress: {self.address}\n"
-		f"Phone:{self.phone}\n")
+		f"Phone:{self.phone}")
 		for item_id in self.rents.items():
 			print(f"Item ID: {item_id}")
