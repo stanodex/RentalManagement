@@ -5,7 +5,8 @@ from datetime import datetime
 class Customer:
 	customer_id = 1000
 	def __init__(self, name, surname, address, phone):
-		self.customer_id = Customer.customer_id + 1
+		Customer.customer_id += 1
+		self.customer_id = Customer.customer_id
 		self.name = name
 		self.surname = surname
 		self.address = address

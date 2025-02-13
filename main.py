@@ -71,9 +71,14 @@ def main():
 			customer_id = int(input("Enter customer ID: "))
 			manager.rentitem(item_id, customer_id)
 		elif choice == 4:
+			os.system('cls||clear')
 			item_id = int(input("Enter item ID: "))
 			customer_id = int(input("Enter customer ID: "))
 			manager.returnitem(item_id, customer_id)
+		elif choice == 5:
+			os.system('cls||clear')
+			item_id = int(input("Enter item ID: "))
+			#FIX HERE
 		else:
 			print("Invalid choice.")
 		choice = int(input("1)Exit\n2)Menu\nEnter your choice: "))
