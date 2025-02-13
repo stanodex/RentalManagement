@@ -77,10 +77,35 @@ def main():
 			manager.returnitem(item_id, customer_id)
 		elif choice == 5:
 			os.system('cls||clear')
-			item_id = int(input("Enter item ID: "))
-			#FIX HERE
-		else:
-			print("Invalid choice.")
+			print("Choose item type:\n1. Car")
+			item_type_choice = int(input("Enter your choice: "))
+			if item_type_choice == 1:
+				item_type = "Car"
+			else:
+				print("ERR: Invalid choice.")
+				continue
+			brand = input("Enter brand: ")
+			model = input("Enter model: ")
+			year = int(input("Enter year: "))
+			condition = input("Enter condition: ")
+			price_per_day = int(input("Enter price per day: "))
+			if item_type == "Car":
+				new_item = Car(item_type, brand, model, year, condition, price_per_day)
+			manager.additem(new_item)
+		elif choice == 6:
+			item_id = int(input("Enter the item id you want to edit:"))
+			if item_id in RentalManager.all_items:
+				type = str(input("Enter new type: "))
+				brand = str(input("Enter new brand: "))
+				model = str(input("Enter new model: "))
+				year = int(input("Enter new year: "))
+				condition = str(input("Enter new condition: "))
+				price_per_day = int(input("Enter new price: "))
+				manager.edititem(item_id, type, brand, model, year, condition, price_per_day)
+		elif choice == 7:
+			id_to_remove = int(input("Enter the item id you want to remove: "))
+			manager.removeitem(id_to_remove)
+		#==========================================================
 		choice = int(input("1)Exit\n2)Menu\nEnter your choice: "))
 		if choice == 1:
 			sys.exit(0)

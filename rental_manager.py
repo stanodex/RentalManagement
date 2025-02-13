@@ -19,17 +19,24 @@ class RentalManager:
 			RentalManager.all_items[item.item_id] = item
 			print(f"SUCCS: The item with the id number {item.item_id} has been added successfully.\n")
 	
-	def removeitem(self, item_id):
+	def	edititem(self, item_id, type, brand, model, year, condition, price_per_day):
 		if item_id in RentalManager.all_items:
 			item = RentalManager.all_items[item_id]
-			if item.is_rentable == False:
-				print("ERR: You cannot remove already rented item.\n")
-		elif item_id not in RentalManager.all_items:
-			print("ERR: You cannot remove inexistent item.\n")
+			item.editinfo(type, brand, model, year, condition, price_per_day)
+			print("Item info edited successfully.")
 		else:
-			del RentalManager.all_items[item_id]
-			print("SUCCS: Item removed succesfully.\n")
-	
+			print(f"There is no item with the ID {item_id}.")
+	def removeitem(self, item_id):
+		if item_id not in RentalManager.all_items:
+			print("ERR: You cannot remove an inexistent item.\n")
+			return  # Exit function
+		item = RentalManager.all_items[item_id]
+		if not item.is_rentable:  # If the item is rented
+			print("ERR: You cannot remove an already rented item.\n")
+			return  # Exit function
+		del RentalManager.all_items[item_id]
+		print(f"SUCCS: Item with ID {item_id} removed successfully.\n")
+		
 	def searchitem(self, item_id):
 		if item_id in RentalManager.all_items:
 			RentalManager.all_items[item_id].getinfo()
@@ -75,7 +82,11 @@ class RentalManager:
 			else:
 				item.is_rentable = False
 				item.rent_date = datetime.now().timetuple().tm_yday
-				RentalManager.customer_list[customer_id].rents[item_id] = item
+				print(f"Adding to rents: {item_id} -> {item}")
+				RentalManager.customer_list[customer_id].rents[item_id] = {
+                "brand": item.brand,
+                "model": item.model
+            	}
 				print(f"SUCCS: Item with the ID number {item_id} has been rented successfully.")
 
 	#if you rent it in the 30.12.2025 and if you return it at 02.01.2026 u will pay for 2 days FIX IT

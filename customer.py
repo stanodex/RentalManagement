@@ -13,21 +13,17 @@ class Customer:
 		self.phone = phone
 		self.rents = {}
 	
-	def setname(self, name):
-		self.name = name
-
-	def setsurname(self, surname):
-		self.surname = surname
-	
-	def setaddress(self, address):
-		self.address = address
-	
-	def setphone(self, phone):
-		self.phone = phone
-	
 	#check getinfo for loop
+
+	def editinfo(self, name, surname, address, phone):
+		self.name = name
+		self.surname = surname
+		self.address = address
+		self.phone = phone
+
 	def getinfo(self):
 		print(f"ID: {self.customer_id}\nName: {self.name}\nSurname: {self.surname}\nAddress: {self.address}\n"
 		f"Phone:{self.phone}")
-		for item_id in self.rents.items():
-			print(f"Item ID: {item_id}")
+		print("Rented Items:")
+		for item_id, item_info in self.rents.items():
+			print(f"ID: {item_id} {item_info['brand']} {item_info['model']}")
