@@ -6,31 +6,14 @@ import os
 
 def menu():
 	print("""
- __     __  _   _                         _               _                         _                         
- \ \   / / | | | |                       | |             | |                       | |                        
-  \ \_/ ___| | | | ____ _ _   _  __ _  __| | __ _ _ __   | |_ ___ ____   __ _  ___ | |_ _   _ _ __ _   _ _ __ 
-   \   / _ | | | |/ / _` | | | |/ _` |/ _` |/ _` | '_ \  | __/ _ |_  /  / _` |/ _ \| __| | | | '__| | | | '__|
-    | |  __| | |   | (_| | |_| | (_| | (_| | (_| | | | | | || (_) / /  | (_| | (_) | |_| |_| | |  | |_| | |   
-    |_|\___|_| |_|\_\__,_|\__, |\__,_|\__,_|\__,_|_| |_|  \__\___/___|  \__, |\___/ \__|\__,_|_|   \__,_|_|   
-                           __/ |                                         __/ |                                
-                          |___/                                         |___/                                														
-""")
+	   \033[94m
+   ___           __       __  __  ___                           
+  / _ \___ ___  / /____ _/ / /  |/  /__ ____  ___ ____ ____ ____
+ / , _/ -_) _ \/ __/ _ `/ / / /|_/ / _ `/ _ \/ _ `/ _ `/ -_) __/
+/_/|_|\__/_//_/\__/\_,_/_/ /_/  /_/\_,_/_//_/\_,_/\_, /\__/_/   
+                                                 /___/          """)
 	
-	'''print("""\33[94m═══•◉•═════
-▂▄▄▓▄▄▂
-◢◤ █▀▀████▄▄▄▄◢◤
-█▄ █ █▄ ███▀▀▀▀▀▀▀╬
-◥█████◤
-═╩══╩═
-╬═╬
-╬═╬
-╬═╬ B Y E
-╬═╬ T H A N K S . F O R . T H E . L P S.
-╬═╬ ●/
-╬═╬/▌
-╬═╬/""")'''
-
-	print("1. List Items")
+	print("\033[37m\033[1m1. List Items")
 	print("2. List Customers")
 	print("3. Rent Item")
 	print("4. Return Item")
@@ -43,17 +26,30 @@ def menu():
 	print("11. Exit")
 
 def main():
-	print("Started")
 	manager = RentalManager()
 
-	car1 = Car("Car", "Ferrari", "F8 Tributo", 2024, "Mint Condition", 1000)
-	car2 = Car("Car", "Porsche", "992.1 Turbo S", 2024, "Mint Condition", 850)
+	car1 = Car("Car", "Ferrari", "F8 Tributo", 2024, "Mint Condition", 1300)
+	car2 = Car("Car", "Porsche", "992.1 Turbo S", 2024, "Mint Condition", 1000)
+	car3 = Car("Car", "Rolls Royce", "Cullinan", 2024, "Mint Condition", 900)
+	car4 = Car("Car", "Mercedes-Benz", "G63 Brabus", 2023, "Mint Condition", 850)
+	car5 = Car("Car", "Lamborghini", "Huracan Evo", 2024, "Mint Condition", 1300)
+	car6 = Car("Car", "BMW", "M5 CS", 2024, "Mint Condition", 900)
+	car7 = Car("Car", "Mercedes-Benz", "S63", 2024, "Mint Condition", 850)
+
 	manager.additem(car1)
 	manager.additem(car2)
+	manager.additem(car3)
+	manager.additem(car4)
+	manager.additem(car5)
+	manager.additem(car6)
+	manager.additem(car7)
 
 	customer1 = Customer("Hasan", "Ceviz", "Monaco", "999-888-777")
+	customer2 = Customer("Michael", "Jordan", "USA", "111-222-333")
 	manager.addcustomer(customer1)
+	manager.addcustomer(customer2)
 
+	os.system('cls||clear')
 	while True:
 		menu()
 		choice = input("Enter your choice: ")
@@ -102,14 +98,70 @@ def main():
 				condition = str(input("Enter new condition: "))
 				price_per_day = int(input("Enter new price: "))
 				manager.edititem(item_id, type, brand, model, year, condition, price_per_day)
+			else:
+				print(f"\033[91mThere is no item with the ID {item_id}.")
 		elif choice == 7:
 			id_to_remove = int(input("Enter the item id you want to remove: "))
 			manager.removeitem(id_to_remove)
-		#==========================================================
-		choice = int(input("1)Exit\n2)Menu\nEnter your choice: "))
-		if choice == 1:
-			sys.exit(0)
-		elif choice == 2:
-			menu()
+		elif choice == 8:
 			os.system('cls||clear')
+			name = str(input("Enter customer name: "))
+			surname = str(input("Enter customer surname: "))
+			address = str(input("Enter customer address: "))
+			phone = str(input("Enter customer phone: "))
+			new_customer = Customer(name, surname, address, phone)
+			manager.addcustomer(new_customer)
+			print("Customer added successfully.")
+		elif choice == 9:
+			os.system('cls||clear')
+			customer_id = int(input("Enter the customer id you want to edit: "))
+			name = str(input("Enter the new name: "))
+			surname = str(input("Enter the new surname: "))
+			address = str(input("Enter the new address: "))
+			phone = str(input("Enter the new phone: "))
+			manager.editcustomer(customer_id, name, surname, address, phone)
+		elif choice == 10:
+			customer_id = int(input("Enter the customer id you want to remove: "))
+			manager.removecustomer(customer_id)
+		elif choice == 11:
+			os.system('cls||clear')
+			print("""\33[94m═══•◉•═════
+▂▄▄▓▄▄▂
+◢◤ █▀▀████▄▄▄▄◢◤
+█▄ █ █▄ ███▀▀▀▀▀▀▀╬
+◥█████◤
+═╩══╩═
+╬═╬
+╬═╬
+╬═╬ B Y E
+╬═╬ B Y E.
+╬═╬ ●/
+╬═╬/▌
+╬═╬/""")
+			sys.exit(0)
+		#==========================================================
+		while True:
+			choice = int(input("\033[93m1)Exit\n2)Menu\nEnter your choice: "))
+			if choice == 1:
+				os.system('cls||clear')
+				print("""\33[94m═══•◉•═════
+▂▄▄▓▄▄▂
+◢◤ █▀▀████▄▄▄▄◢◤
+█▄ █ █▄ ███▀▀▀▀▀▀▀╬
+◥█████◤
+═╩══╩═
+╬═╬
+╬═╬
+╬═╬ B Y E
+╬═╬ B Y E.
+╬═╬ ●/
+╬═╬/▌
+╬═╬/""")
+				sys.exit(0)
+			elif choice == 2:
+				menu()
+				os.system('cls||clear')
+				break
+			else:
+				print("Invalid choice!")
 main()

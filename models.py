@@ -43,5 +43,5 @@ class Car(RentalItem):
 			print(f"Item ID: {self.item_id}\nBrand: {self.brand}\nModel: {self.model}\nYear: {self.year}\nPrice Per Day: "
 		  f"{self.price_per_day}PLN\nStatus: Available")
 		else:
-			print(f"Item ID: {self.item_id}\nModel: {self.name}\nYear: {self.year}\nPrice Per Day: "
+			print(f"Item ID: {self.item_id}\nModel: {self.model}\nYear: {self.year}\nPrice Per Day: "
 		  f"{self.price_per_day}PLN\nStatus: Rented")

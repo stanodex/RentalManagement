@@ -21,6 +21,12 @@ class Customer:
 		self.address = address
 		self.phone = phone
 
+	def	editinfo(self, name, surname, address, phone):
+		self.name = name
+		self.surname = surname
+		self.address = address
+		self.phone = phone
+
 	def getinfo(self):
 		print(f"ID: {self.customer_id}\nName: {self.name}\nSurname: {self.surname}\nAddress: {self.address}\n"
 		f"Phone:{self.phone}")

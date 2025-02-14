@@ -14,91 +14,67 @@ class RentalManager:
 	
 	def additem(self, item):
 		if item.item_id in RentalManager.all_items:
-			print(f"ERR: The item with the id number {item.item_id} is already exist in the list.\n")
+			print(f"\033[91mThe item with the id number {item.item_id} is already exist in the list.\n")
 		else:
 			RentalManager.all_items[item.item_id] = item
-			print(f"SUCCS: The item with the id number {item.item_id} has been added successfully.\n")
+			print(f"\033[92mThe item with the id number {item.item_id} has been added successfully.\n")
 	
 	def	edititem(self, item_id, type, brand, model, year, condition, price_per_day):
-		if item_id in RentalManager.all_items:
-			item = RentalManager.all_items[item_id]
-			item.editinfo(type, brand, model, year, condition, price_per_day)
-			print("Item info edited successfully.")
-		else:
-			print(f"There is no item with the ID {item_id}.")
+		item = RentalManager.all_items[item_id]
+		item.editinfo(type, brand, model, year, condition, price_per_day)
+		print("Item info edited successfully.")
 	def removeitem(self, item_id):
 		if item_id not in RentalManager.all_items:
-			print("ERR: You cannot remove an inexistent item.\n")
+			print("\033[91mYou cannot remove an inexistent item.\n")
 			return  # Exit function
 		item = RentalManager.all_items[item_id]
 		if not item.is_rentable:  # If the item is rented
-			print("ERR: You cannot remove an already rented item.\n")
+			print("\033[91mYou cannot remove the already rented item.\n")
 			return  # Exit function
 		del RentalManager.all_items[item_id]
-		print(f"SUCCS: Item with ID {item_id} removed successfully.\n")
+		print(f"\033[92mItem with ID {item_id} removed successfully.\n")
 		
 	def searchitem(self, item_id):
 		if item_id in RentalManager.all_items:
 			RentalManager.all_items[item_id].getinfo()
 		else:
-			print("ERR: Item is not found.\n")
+			print("\033[91mItem is not found.\n")
 	
 	def listitems(self):
 		for item_id, item in RentalManager.all_items.items():  # Unpack tuple
 			item.display_info()
 			print("---------------------------")
 
-
-	#check changed elif blocks to if block to see all possible errors at once
-	"""def rentitem(self, item_id, customer_id):
-		if customer_id not in RentalManager.customer_list:
-			print("ERR: Customer is not exist.\n")
-		elif item_id not in RentalManager.all_items:
-			print("ERR: Item with the entered ID is not exist.\n")
-		elif item_id in RentalManager.all_items:
-			item = RentalManager.all_items[item_id]
-			if item.is_rentable == False:
-				print("ERR: The item is already rented.\n")
-		elif item_id in RentalManager.customer_list[customer_id].rents:
-			print("ERR: You cannot rent the item you already rented.\n")
-		else:
-			item = RentalManager.all_items[item_id]
-			item.is_rentable = False
-			item.rent_date = datetime.now().timetuple().tm_yday
-			RentalManager.customer_list[customer_id].rents[item_id] = item
-			print(f"SUCCS: Item with the id number {item_id} has been rented successfully.\n")"""
-	
 	def rentitem(self, item_id, customer_id):
 		if customer_id not in RentalManager.customer_list:
-			print("ERR: Customer does not exist.\n")
+			print("\033[91mCustomer does not exist.\n")
 		elif item_id not in RentalManager.all_items:
-			print("ERR: Item with the entered ID does not exist.\n")
+			print("\033[91mItem with the entered ID does not exist.\n")
 		elif item_id in RentalManager.customer_list[customer_id].rents:
-			print("ERR: You cannot rent the item you already rented.\n")
+			print("\033[91mYou cannot rent the item you already rented.\n")
 		else:
 			item = RentalManager.all_items[item_id]
 			if not item.is_rentable:
-				print("ERR: The item is already rented.\n")
+				print("\033[91mThe item is already rented.\n")
 			else:
 				item.is_rentable = False
 				item.rent_date = datetime.now().timetuple().tm_yday
-				print(f"Adding to rents: {item_id} -> {item}")
 				RentalManager.customer_list[customer_id].rents[item_id] = {
                 "brand": item.brand,
                 "model": item.model
             	}
-				print(f"SUCCS: Item with the ID number {item_id} has been rented successfully.")
+				print(f"\033[92m{item.brand} {item.model} has been rented successfully.")
 
 	#if you rent it in the 30.12.2025 and if you return it at 02.01.2026 u will pay for 2 days FIX IT
 	def returnitem(self, item_id, customer_id):
 		if customer_id not in RentalManager.customer_list:
-			print("ERR: Customer is not exist.\n")
+			print("\033[91mCustomer is not exist.\n")
 		elif item_id not in RentalManager.all_items:
-			print("ERR: Item with the entered ID is not exist.\n")
+			print("\033[91mItem with the entered ID is not exist.\n")
 		elif item_id not in RentalManager.customer_list[customer_id].rents:
-			print("ERR: You cannot return the item you did not rent.\n")
+			print("\033[91mYou cannot return the item you did not rent.\n")
 		elif RentalManager.all_items[item_id].is_rentable == True:
-			print("ERR: You cannot return the item not rented.\n")
+			print("\033[91mYou cannot return the item not rented.\n")
 		else:
 			item = RentalManager.all_items[item_id]
 			item.return_date = datetime.now().timetuple().tm_yday
@@ -110,26 +86,34 @@ class RentalManager:
 	
 	def addcustomer(self, customer):
 		if customer.customer_id in RentalManager.customer_list:
-			print(f"ERR: The customer with the id number {customer.customer_id} is already exist in the list.\n")
+			print(f"\033[91mThe customer with the id number {customer.customer_id} is already exist in the list.\n")
 		else:
 			RentalManager.customer_list[customer.customer_id] = customer
-			print(f"SUCCS: The customer with the id number {customer.customer_id} has been added successfully.\n")
+			print(f"\033[92mThe customer with the id number {customer.customer_id} has been added successfully.\n")
 	
+	def	editcustomer(self, customer_id, name, surname, address, phone):
+		if customer_id in RentalManager.customer_list:
+			customer = RentalManager.customer_list[customer_id]
+			customer.editinfo(name, surname, address, phone)
+			print("Customer info edited succesfully.")
+		else:
+			print(f"There is no customer with the id {customer_id}")
+
 	def removecustomer(self, customer_id):
 		if customer_id in RentalManager.customer_list:
 			if len(RentalManager.customer_list[customer_id].rents) != 0:
-				print("ERR: You cannot remove the customer before get the item/items returned.\n")
+				print("\033[91mYou cannot remove the customer before get the item/items returned.\n")
 			else:
 				del RentalManager.customer_list[customer_id]
-				print(f"SUCCS: Customer has been removed successfully.\n")
+				print(f"\033[92mCustomer has been removed successfully.\n")
 		else:
-			print("ERR: Customer is not exist.\n")
+			print("\033[91mCustomer is not exist.\n")
 
 	def searchcustomer(self, customer_id):
 		if customer_id in RentalManager.customer_list:
 			RentalManager.customer_list[customer_id].getinfo()
 		else:
-			print("ERR: Customer is not found.\n")
+			print("\033[91mCustomer is not found.\n")
 	
 	def listcustomers(self):
 		for customer_id, customer in RentalManager.customer_list.items():
